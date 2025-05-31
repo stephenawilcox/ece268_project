@@ -1,0 +1,3 @@
+[submodule "external/poseidon-hash"]
+	path = external/poseidon-hash
+	url = https://github.com/ingonyama-zk/poseidon-hash
