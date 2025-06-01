@@ -341,7 +341,7 @@ def bits_to_little_endian_bytes(bits: bitarray) -> bytes:
     return bytes(out)
 
 def main():
-    raw_bits = SHA3_hash("Meme")
+    raw_bits = SHA3_hash("abc")
     digest_bytes = bits_to_little_endian_bytes(raw_bits)
     print(digest_bytes.hex().upper())
     
