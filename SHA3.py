@@ -275,7 +275,20 @@ def Keccak_c(msg, b, c, d):
     result = sponge(msg, b, c, d)
     return result
 
-
+"""
+Function to ensure that little endian is used when reading out bitarray
+"""
+def bits_to_little_endian_bytes(bits: bitarray) -> bytes:
+    n = len(bits)
+    if n % 8 != 0:
+        raise ValueError("Length of bits must be a multiple of 8")
+    out = bytearray(n // 8)
+    for i in range(0, n, 8):
+        byte_val = 0
+        for j in range(8):
+            byte_val |= (bits[i + j] << j)
+        out[i // 8] = byte_val
+    return bytes(out)
 
 
 def SHA3_hash(msg, b=1600, c=512, d=256):
@@ -301,7 +314,8 @@ def SHA3_hash(msg, b=1600, c=512, d=256):
     msg_bits = msg_bits + bitarray('01')
     # Begin Hash
     hash = Keccak_c(msg_bits, b, c, d)
-    return hash
+    digest_hash = bits_to_little_endian_bytes(hash)
+    return digest_hash
 
 
 
@@ -317,25 +331,11 @@ def print_state(state):
     for i, layer in enumerate(state):  # Enumerate layers
         print(f"Layer {i}:\n{layer}")
 
-"""
-Function to ensure that little endian is used when reading out bitarray
-"""
-def bits_to_little_endian_bytes(bits: bitarray) -> bytes:
-    n = len(bits)
-    if n % 8 != 0:
-        raise ValueError("Length of bits must be a multiple of 8")
-    out = bytearray(n // 8)
-    for i in range(0, n, 8):
-        byte_val = 0
-        for j in range(8):
-            byte_val |= (bits[i + j] << j)
-        out[i // 8] = byte_val
-    return bytes(out)
+
 
 def main():
-    raw_bits = SHA3_hash("abc")
-    digest_bytes = bits_to_little_endian_bytes(raw_bits)
-    print(digest_bytes.hex().upper())
+    hash = SHA3_hash("abc")
+    print(hash.hex().upper())
     
     
 
