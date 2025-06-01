@@ -170,7 +170,6 @@ def Keccak_p(input, b, n_r=24):
     w = b // 25
     l = int(math.log2(w))
     state_array = bitsToStateArray(input, w)
-    # for i_r in range(12 + 2*l - n_r, 12 + 2*l - 1):
     for i_r in range(n_r):
         state_array = round(state_array, w, l, i_r)
     s = stateArrayToBits(state_array, w)
@@ -189,13 +188,6 @@ def pad10(x, m):
     OUTPUTS:
     pad - padding used for sponge function
     """
-    # j = (-(m + 3)) % x
-
-    # pad = bitarray()
-    # pad.append(0)               # the “0” bit
-    # pad.append(1)               # the “1” bit
-    # pad.extend([0] * j)         # j zeros
-    # pad.append(1)               # final “1”
 
     j = (-m - 2) % x 
     zeros = bitarray(j)
