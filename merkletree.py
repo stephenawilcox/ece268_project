@@ -1,15 +1,15 @@
 from typing import List
 import hashlib      # TEMPORARY, FOR TESTING MERKLE TREE
 #from SHA3 import encode
-#from poseidon import encode
+from poseidon_cpu import p_encode
 
 def hash_data(data:str, hash_func:str):
     if(hash_func == "SHA256"):
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
     # elif(hash_func == "SHA3"):                                      #FIXME
     #     return hashlib.sha256(data.encode('utf-8')).hexdigest()     #CHANGE LATER
-    # elif(hash_func == "POSEIDON"):
-    #     return hashlib.sha256(data.encode('utf-8')).hexdigest()     #CHANGE LATER
+    elif(hash_func == "POSEIDON"):
+        return p_encode(data)
     else:
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
   

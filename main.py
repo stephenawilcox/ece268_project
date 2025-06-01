@@ -9,7 +9,7 @@ def main():
     for i in range(num_elements):
         data_blocks.append("element" + str(i))
 
-    hash_func = "SHA256"
+    hash_func = "POSEIDON"
 
     start_time = time()
     cpu_tree = Merkle_Tree(data_blocks, hash_func)
