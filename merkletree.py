@@ -1,15 +1,15 @@
 from typing import List
 import hashlib      # TEMPORARY, FOR TESTING MERKLE TREE
-#from SHA3 import encode
+from SHA3 import SHA3_hash
 from poseidon_cpu import p_encode
 
 def hash_data(data:str, hash_func:str):
     if(hash_func == "SHA256"):
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
-    # elif(hash_func == "SHA3"):                                      #FIXME
-    #     return hashlib.sha256(data.encode('utf-8')).hexdigest()     #CHANGE LATER
-    elif(hash_func == "POSEIDON"):
-        return p_encode(data)
+    elif(hash_func == "SHA3"): 
+        return SHA3_hash(data).hex()
+    # elif(hash_func == "POSEIDON"):
+    #     return p_encode(data)
     else:
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
   
@@ -123,7 +123,7 @@ class Merkle_Tree:
         base_node = self.find_node(input_hash, self.root)
         if(base_node == None):
             return proof
-        print(base_node.node_str)
+        # print(base_node.node_str)
 
         cur_node = base_node
         while(cur_node != self.root):
