@@ -2,6 +2,7 @@ from typing import List
 import hashlib      # TEMPORARY, FOR TESTING MERKLE TREE
 from SHA3 import SHA3_hash
 from poseidon_cpu import p_encode
+from poseidon_gpu import poseidon_hash
 
 def hash_data(data:str, hash_func:str):
     if(hash_func == "SHA256"):
