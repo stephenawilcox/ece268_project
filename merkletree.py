@@ -8,8 +8,8 @@ def hash_data(data:str, hash_func:str):
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
     elif(hash_func == "SHA3"): 
         return SHA3_hash(data).hex()
-    # elif(hash_func == "POSEIDON"):
-    #     return p_encode(data)
+    elif(hash_func == "POSEIDON"):
+        return p_encode(data)
     else:
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
   
