@@ -1,15 +1,21 @@
 from typing import List
 import hashlib      # TEMPORARY, FOR TESTING MERKLE TREE
 from SHA3 import SHA3_hash
+from SHA3_gpu import SHA3_hash_gpu
 from poseidon_cpu import p_encode
+from poseidon_gpu import run_hash
 
 def hash_data(data:str, hash_func:str):
     if(hash_func == "SHA256"):
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
-    elif(hash_func == "SHA3"): 
-        return SHA3_hash(data).hex()
-    # elif(hash_func == "POSEIDON"):
-    #     return p_encode(data)
+    elif(hash_func == "SHA3_CPU"): 
+        return SHA3_hash(data)
+    elif(hash_func == "POSEIDON_CPU"):
+        return p_encode(data)
+    elif(hash_func == "SHA3_GPU"): 
+        return SHA3_hash_gpu(data)
+    elif(hash_func == "POSEIDON_GPU"):
+        return run_hash(data)
     else:
         return hashlib.sha256(data.encode('utf-8')).hexdigest()
   
